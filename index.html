@@ -22,53 +22,17 @@
     <section class="kartu menu" aria-labelledby="judul-menu">
       <h2 id="judul-menu">Daftar menu</h2>
 
+      <div class="alat">
+        <input type="search" id="cari" class="cari" placeholder="Cari menu, misal: ayam" aria-label="Cari menu">
+        <div class="tab-wrap" id="tabKategori" role="group" aria-label="Filter kategori"></div>
+      </div>
+
       <div class="baris kepala" aria-hidden="true">
         <span>No</span><span>Menu - harga</span><span>Jumlah porsi</span><span class="kanan">Subtotal</span>
       </div>
 
-      <div class="baris item" data-nama="Bakso" data-harga="10000">
-        <span class="no">1.</span>
-        <label class="nama" for="qty1">Bakso <small>Rp 10.000</small></label>
-        <div class="stepper">
-          <button type="button" class="step" data-aksi="kurang" aria-label="Kurangi Bakso">&minus;</button>
-          <input type="number" id="qty1" class="qty" min="0" step="1" inputmode="numeric" placeholder="0">
-          <button type="button" class="step" data-aksi="tambah" aria-label="Tambah Bakso">+</button>
-        </div>
-        <span class="subtotal kanan">Rp 0</span>
-      </div>
-
-      <div class="baris item" data-nama="Mie Ayam" data-harga="12000">
-        <span class="no">2.</span>
-        <label class="nama" for="qty2">Mie ayam <small>Rp 12.000</small></label>
-        <div class="stepper">
-          <button type="button" class="step" data-aksi="kurang" aria-label="Kurangi Mie ayam">&minus;</button>
-          <input type="number" id="qty2" class="qty" min="0" step="1" inputmode="numeric" placeholder="0">
-          <button type="button" class="step" data-aksi="tambah" aria-label="Tambah Mie ayam">+</button>
-        </div>
-        <span class="subtotal kanan">Rp 0</span>
-      </div>
-
-      <div class="baris item" data-nama="Soto Ayam" data-harga="15000">
-        <span class="no">3.</span>
-        <label class="nama" for="qty3">Soto ayam <small>Rp 15.000</small></label>
-        <div class="stepper">
-          <button type="button" class="step" data-aksi="kurang" aria-label="Kurangi Soto ayam">&minus;</button>
-          <input type="number" id="qty3" class="qty" min="0" step="1" inputmode="numeric" placeholder="0">
-          <button type="button" class="step" data-aksi="tambah" aria-label="Tambah Soto ayam">+</button>
-        </div>
-        <span class="subtotal kanan">Rp 0</span>
-      </div>
-
-      <div class="baris item" data-nama="Nasi Rames" data-harga="9000">
-        <span class="no">4.</span>
-        <label class="nama" for="qty4">Nasi rames <small>Rp 9.000</small></label>
-        <div class="stepper">
-          <button type="button" class="step" data-aksi="kurang" aria-label="Kurangi Nasi rames">&minus;</button>
-          <input type="number" id="qty4" class="qty" min="0" step="1" inputmode="numeric" placeholder="0">
-          <button type="button" class="step" data-aksi="tambah" aria-label="Tambah Nasi rames">+</button>
-        </div>
-        <span class="subtotal kanan">Rp 0</span>
-      </div>
+      <div id="daftarMenu"></div>
+      <p class="kosong-menu" id="kosongMenu" hidden>Menu tidak ditemukan. Coba kata kunci lain.</p>
 
       <p class="info-diskon" id="infoDiskon">Belanja di atas Rp 200.000 mendapat diskon 5%.</p>
     </section>
@@ -111,11 +75,17 @@
 
   </main>
 
-  <!-- Hanya muncul saat dicetak -->
-  <section class="cetak-daftar" id="daftarBeli" aria-hidden="true">
-    <h2>Menu yang dibeli</h2>
-    <ul id="isiDaftar"></ul>
+  <!-- Hanya muncul saat dicetak: satu tabel yang bisa lanjut ke halaman berikutnya -->
+  <section class="area-cetak" id="areaCetak" aria-hidden="true">
+    <h1>Kasir Kafe LK FTI UKSW</h1>
     <p class="tgl" id="tglCetak"></p>
+    <table class="tabel-cetak">
+      <thead>
+        <tr><th class="c-no">No</th><th>Menu yang dibeli</th><th class="c-ang">Harga</th><th class="c-jml">Jumlah</th><th class="c-ang">Subtotal</th></tr>
+      </thead>
+      <tbody id="isiCetak"></tbody>
+    </table>
+    <p class="terima">Terima kasih atas kunjungan Anda</p>
   </section>
 
   <footer class="penutup">Terima kasih atas kunjungan Anda</footer>
