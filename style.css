@@ -22,10 +22,7 @@ body {
   min-height: 100vh;
   font-family: var(--font-isi);
   color: var(--tinta);
-  background:
-    radial-gradient(circle at 12% 8%, #dff0ef 0, transparent 38%),
-    radial-gradient(circle at 92% 90%, #fff1cc 0, transparent 34%),
-    var(--kertas);
+  background: var(--kertas);
   padding: 32px 20px 24px;
   line-height: 1.5;
 }
@@ -165,6 +162,34 @@ h2 {
 }
 .struk h2 { color: #fff; }
 
+.menu-terpilih {
+  margin-bottom: 20px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .08);
+}
+.menu-terpilih h3 {
+  margin: 0 0 8px;
+  color: var(--kuning);
+  font-family: var(--font-judul);
+}
+.menu-terpilih ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.menu-terpilih li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #fff;
+  font-size: .9rem;
+}
+.menu-terpilih li strong { white-space: nowrap; }
+.menu-terpilih .belum-dipilih { color: #c5cfe0; }
+
 .ringkasan { margin: 0 0 20px; }
 .r {
   display: flex; justify-content: space-between; align-items: baseline;
@@ -267,7 +292,44 @@ h2 {
 /* ====== Responsif ====== */
 @media (max-width: 860px) {
   .kasir { grid-template-columns: 1fr; }
-  .struk { position: relative; top: 0; margin-bottom: 14px; }
+  body { padding-bottom: 220px; }
+  .struk {
+    position: fixed;
+    top: auto;
+    right: 12px;
+    bottom: 0;
+    left: 12px;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: min-content min-content min-content min-content;
+    grid-template-areas:
+      "total label"
+      "total input"
+      "change change"
+      "actions actions";
+    align-content: start;
+    gap: 6px 12px;
+    height: max-content;
+    max-height: calc(100dvh - 16px);
+    overflow-y: auto;
+    max-width: 996px;
+    margin: 0 auto;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    border-radius: 16px 16px 0 0;
+  }
+  .struk h2, .menu-terpilih, .ringkasan .r:not(.besar) { display: none; }
+  .ringkasan { grid-area: total; align-self: center; margin: 0; }
+  .r.besar { gap: 8px; padding: 0; }
+  .r.besar dt { font-size: .85rem; }
+  .r.besar dd { font-size: 1.25rem; }
+  .bayar { grid-area: label; align-self: end; margin: 0; font-size: .85rem; }
+  .input-rp { grid-area: input; min-width: 0; }
+  .input-rp input { padding-top: 8px; padding-bottom: 8px; }
+  .kembalian { grid-area: change; min-width: 0; margin-top: 0; padding: 8px 12px; }
+  .kembalian strong { font-size: 1.05rem; }
+  .aksi { grid-area: actions; margin-top: 0; }
+  .tombol { padding: 9px 10px; }
 }
 @media (max-width: 520px) {
   .menu { padding: 16px; }

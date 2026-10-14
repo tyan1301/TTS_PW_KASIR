@@ -45,6 +45,7 @@ const elDaftarMenu = document.getElementById("daftarMenu");
 const elTab       = document.getElementById("tabKategori");
 const inCari      = document.getElementById("cari");
 const elKosong    = document.getElementById("kosongMenu");
+const elMenuTerpilih = document.getElementById("menuTerpilih");
 let barisItem     = [];
 const elTotal     = document.getElementById("total");
 const elDiskon    = document.getElementById("diskon");
@@ -155,6 +156,7 @@ function tampilToast(pesan, galat = false) {
 // ====== Perhitungan utama ======
 function hitung() {
   let total = 0;
+  const menuTerpilih = [];
 
   barisItem.forEach((baris) => {
     const harga = Number(baris.dataset.harga);
@@ -163,7 +165,26 @@ function hitung() {
     total += subtotal;
     baris.querySelector(".subtotal").textContent = rupiah(subtotal);
     baris.classList.toggle("aktif", jumlah > 0);
+    if (jumlah > 0) menuTerpilih.push({ nama: baris.dataset.nama, jumlah, subtotal });
   });
+
+  elMenuTerpilih.replaceChildren();
+  if (menuTerpilih.length === 0) {
+    const kosong = document.createElement("li");
+    kosong.className = "belum-dipilih";
+    kosong.textContent = "Belum ada menu dipilih.";
+    elMenuTerpilih.appendChild(kosong);
+  } else {
+    menuTerpilih.forEach((menu) => {
+      const item = document.createElement("li");
+      const nama = document.createElement("span");
+      const subtotal = document.createElement("strong");
+      nama.textContent = menu.nama + " × " + menu.jumlah;
+      subtotal.textContent = rupiah(menu.subtotal);
+      item.append(nama, subtotal);
+      elMenuTerpilih.appendChild(item);
+    });
+  }
 
   const dapatDiskon = total > BATAS_DISKON;
   const diskon = dapatDiskon ? total * PERSEN_DISKON : 0;
